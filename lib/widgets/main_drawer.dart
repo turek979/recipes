@@ -3,75 +3,51 @@ import 'package:flutter/material.dart';
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key, required this.onSelectScreen});
 
-  final void Function(String indentifier) onSelectScreen;
+  final void Function(String identifier) onSelectScreen;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.grey[100],
       child: Column(
         children: [
           DrawerHeader(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.primaryContainer,
-                  Theme.of(context)
-                      .colorScheme
-                      .primaryContainer
-                      .withValues(alpha: 0.8)
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+            decoration: BoxDecoration(color: Colors.grey[400]),
             child: Row(
-              children: [
-                Icon(
-                  Icons.fastfood,
-                  size: 48,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(width: 18),
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: const [
+                Icon(Icons.local_dining, size: 37, color: Colors.black),
+                SizedBox(width: 8),
                 Text(
-                  'Cooking up!',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Theme.of(context).colorScheme.primary),
+                  'Menu',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.restaurant,
-              size: 26,
-              color: Theme.of(context).colorScheme.onSurface,
+              size: 30,
+              color: Colors.black,
             ),
-            title: Text(
+            title: const Text(
               'Meals',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface, fontSize: 24),
+              style: TextStyle(color: Colors.black, fontSize: 22),
             ),
-            onTap: () {
-              onSelectScreen('meals');
-            },
+            onTap: () => onSelectScreen('meals'),
           ),
           ListTile(
-            leading: Icon(
-              Icons.settings,
-              size: 26,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            title: Text(
+            leading: const Icon(Icons.tune, size: 30, color: Colors.black),
+            title: const Text(
               'Filters',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface, fontSize: 24),
+              style: TextStyle(color: Colors.black, fontSize: 22),
             ),
-            onTap: () {
-              onSelectScreen('filters');
-            },
+            onTap: () => onSelectScreen('filters'),
           ),
         ],
       ),
