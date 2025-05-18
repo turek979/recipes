@@ -49,6 +49,14 @@ class MainDrawer extends StatelessWidget {
             ),
             onTap: () => onSelectScreen('filters'),
           ),
+          ListTile(
+            leading: const Icon(Icons.storage, size: 30, color: Colors.black),
+            title: const Text(
+              'Local Recipes',
+              style: TextStyle(color: Colors.black, fontSize: 22),
+            ),
+            onTap: () => onSelectScreen('local'),
+          ),
         ],
       ),
     );

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipes/providers/favorites_provider.dart';
-import 'package:recipes/providers/filters_provider.dart';
 import 'package:recipes/screens/categories.dart';
 import 'package:recipes/screens/filters.dart';
 import 'package:recipes/screens/meals.dart';
+import 'package:recipes/screens/local_screen.dart'; // Import LocalScreen
 import 'package:recipes/widgets/main_drawer.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
@@ -26,21 +26,28 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void _setScreen(String identifier) async {
     Navigator.pop(context);
     if (identifier == 'filters') {
-      await Navigator.of(context).push<Map<Filter, bool>>(
+      await Navigator.of(context).push<Map<String, bool>>(
         MaterialPageRoute(builder: (context) => const FiltersScreen()),
       );
+    } else if (identifier == 'local') {
+      await Navigator.of(
+        context,
+      ).push(MaterialPageRoute(builder: (context) => const LocalScreen()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = CategoriesScreen();
+    Widget activePage = const CategoriesScreen();
     var activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
       final favoriteMeals = ref.watch(favoriteMealsProvider);
       activePage = MealsScreen(meals: favoriteMeals, title: 'Your Favorites');
-      activePageTitle = 'Your Favorites';
+      activePageTitle = 'Favorites';
+    } else if (_selectedPageIndex == 2) {
+      activePage = const LocalScreen();
+      // activePageTitle = 'Local Recipes';
     }
 
     return Scaffold(
@@ -103,6 +110,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.star, size: 32),
               label: 'Favorites',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.storage, size: 32),
+              label: 'Local',
             ),
           ],
         ),
